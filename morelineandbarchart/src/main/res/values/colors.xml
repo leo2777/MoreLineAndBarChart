@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+
+
+    <color name="chart_left_index_text_color">#777777</color>
+    <color name="chart_center_index_color">#FC8952</color>
+    <color name="chart_bottom_text_color">#777777</color>
+    <color name="chart_bar_color">#4AA5C2</color>
+    <color name="chart_grid_color">#222733</color>
+    <color name="chart_bottom_line_color">#474e61</color>
+    <color name="chart_line_color">#FC8952</color>
+    <color name="chart_bg_color">#141923</color>
+    <color name="chart_chart_point_color">#ffffff</color>
+
+</resources>
