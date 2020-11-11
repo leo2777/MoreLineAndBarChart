@@ -33,12 +33,12 @@ public class MainActivity extends AppCompatActivity {
         List<Float> value3=new ArrayList<>();
         List<Float> barValue=new ArrayList<>();
         List<String > bottomValue=new ArrayList<>();
-        for (int i=0;i<6;i++){
-            value1.add((float) random.nextInt(10));
-            value2.add((float) random.nextInt(20));
-            value3.add((float) random.nextInt(30));
+        for (int i=0;i<300;i++){
+            value1.add((float) random.nextInt(60));
+            value2.add((float) random.nextInt(40));
+            value3.add((float) random.nextInt(5));
             barValue.add((float) random.nextInt(50));
-            bottomValue.add("下方指标"+(i+1));
+            bottomValue.add("指标");
         }
 
 
@@ -47,13 +47,12 @@ public class MainActivity extends AppCompatActivity {
         moreLineAndBarChart.setBarChartValues(barValue);
         moreLineAndBarChart.setLinesColors(Color.BLUE,Color.YELLOW,Color.RED);
         moreLineAndBarChart.setLineWidth(DisplayUtils.dp2px(this,1));
-        moreLineAndBarChart.setBackgroundColor(Color.WHITE);
 
         moreLineAndBarChart.setSolid(true);
         moreLineAndBarChart.setDrawBar(true);
-        moreLineAndBarChart.setShowGrid(true);
+//        moreLineAndBarChart.setShowGrid(true);
         moreLineAndBarChart.setDrawPoint(true);
-        moreLineAndBarChart.setShowLineValue(true);
+//        moreLineAndBarChart.setShowLineValue(true);
 
         //.......
 
