@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         List<Float> value3=new ArrayList<>();
         List<Float> barValue=new ArrayList<>();
         List<String > bottomValue=new ArrayList<>();
-        for (int i=0;i<300;i++){
+        for (int i=0;i<5;i++){
             value1.add((float) random.nextInt(60));
             value2.add((float) random.nextInt(40));
             value3.add((float) random.nextInt(5));
@@ -50,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
 
         moreLineAndBarChart.setSolid(true);
         moreLineAndBarChart.setDrawBar(true);
-//        moreLineAndBarChart.setShowGrid(true);
+        moreLineAndBarChart.setShowGrid(true);
         moreLineAndBarChart.setDrawPoint(true);
-//        moreLineAndBarChart.setShowLineValue(true);
+        moreLineAndBarChart.setShowLineValue(true);
 
         //.......
 
