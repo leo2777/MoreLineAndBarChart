@@ -46,7 +46,7 @@ allprojects {
 
 ```gradle
 dependencies {
-	        implementation 'com.github.leo2777:MoreLineAndBarChart:1.0.1'
+	        implementation 'com.github.leo2777:MoreLineAndBarChart:1.0.2'
 	}
  
  ``` 
