@@ -1,3 +1,4 @@
+include ':library'
 include ':morelineandbarchart'
 include ':app'
 rootProject.name = "WorkLibraryDemo"
