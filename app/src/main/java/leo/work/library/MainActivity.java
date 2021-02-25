@@ -1,15 +1,14 @@
 package leo.work.library;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Color;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import leo.work.morelineandbarchart.chart.BaseMoreLineAndBarChart;
 import leo.work.morelineandbarchart.chart.MoreLineAndBarChart;
 import leo.work.morelineandbarchart.tools.DisplayUtils;
 
@@ -33,12 +32,12 @@ public class MainActivity extends AppCompatActivity {
         List<Float> value3=new ArrayList<>();
         List<Float> barValue=new ArrayList<>();
         List<String > bottomValue=new ArrayList<>();
-        for (int i=0;i<5;i++){
+        for (int i=0;i<50;i++){
             value1.add((float) random.nextInt(60));
             value2.add((float) random.nextInt(40));
             value3.add((float) random.nextInt(5));
             barValue.add((float) random.nextInt(50));
-            bottomValue.add("指标");
+            bottomValue.add("指标"+(i+1));
         }
 
 
