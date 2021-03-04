@@ -27,6 +27,9 @@ import static android.graphics.Paint.ANTI_ALIAS_FLAG;
  **/
 public class BaseMoreLineAndBarChart extends View {
 
+    private final static String tag_error = "MoreLineAndBarChart--error";
+    private final static String tag_warn = "MoreLineAndBarChart--warn";
+
     //主页面框
     private Rect mainRect;
 
@@ -82,7 +85,7 @@ public class BaseMoreLineAndBarChart extends View {
     private List<Float> barValues;
 
     //折线图颜色数组，长度必须和折线条数一样
-    private int [] lineColors;
+    private int[] lineColors;
 
     //柱状图的颜色
     private int barColor;
@@ -154,15 +157,12 @@ public class BaseMoreLineAndBarChart extends View {
     private boolean isDrawBar;
 
 
-
-
-
     public BaseMoreLineAndBarChart(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public BaseMoreLineAndBarChart(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
 
@@ -194,10 +194,10 @@ public class BaseMoreLineAndBarChart extends View {
         displayWidth = 0;
         displayHeight = 0;
 
-        lineColors=new int[0];
-        lineValues=new ArrayList<>();
-        barValues=new ArrayList<>();
-        bottomTextValues=new ArrayList<>();
+        lineColors = new int[0];
+        lineValues = new ArrayList<>();
+        barValues = new ArrayList<>();
+        bottomTextValues = new ArrayList<>();
 
     }
 
@@ -218,7 +218,7 @@ public class BaseMoreLineAndBarChart extends View {
         int mainHeight = (int) (displayHeight * 0.9f);
 
 
-        mainRect = new Rect(leftWidth + leftPadding, topPadding, displayWidth-leftPadding, mainHeight - bottomPadding);
+        mainRect = new Rect(leftWidth + leftPadding, topPadding, displayWidth - leftPadding, mainHeight - bottomPadding);
         leftRect = new Rect(0, topPadding, leftWidth, mainHeight - bottomPadding);
         bottomRect = new Rect(leftWidth + leftPadding, mainHeight - bottomPadding, displayWidth, displayHeight);
     }
@@ -253,7 +253,7 @@ public class BaseMoreLineAndBarChart extends View {
         int maxLineNum = 0;
 
         //计算所有折线图的最高最低值
-        if (lineValues.size()>0){
+        if (lineValues.size() > 0) {
             for (int i = 0; i < lineValues.size(); i++) {
                 for (int j = 0; j < lineValues.get(i).size(); j++) {
                     maxValue = Math.max(lineValues.get(i).get(j), maxValue);
@@ -262,7 +262,7 @@ public class BaseMoreLineAndBarChart extends View {
                 maxLineNum = Math.max(lineValues.get(i).size(), maxLineNum);
             }
             //单一值的宽度
-            singleValueX =(mainRect.width())/ maxLineNum;
+            singleValueX = (mainRect.width()) / maxLineNum;
         }
 
 
@@ -294,7 +294,7 @@ public class BaseMoreLineAndBarChart extends View {
 
         //设置错误的错误值
         if (textHeight * leftTargetNum > leftRect.height()) {
-            Log.e("leo-moreLineAndBarChart--error", "drawLeft: init-Error :    设置的左边指标值过多，为了显示效果，已经重置为五个，请重新检查！");
+            Log.e(tag_warn, "drawLeft: init-warn :    设置的左边指标值过多，为了显示效果，已经重置为五个，请重新检查！");
             leftTargetNum = 5;
         }
 
@@ -312,8 +312,8 @@ public class BaseMoreLineAndBarChart extends View {
             //画值
             canvas.drawText(value, leftRect.width() / 2 - textWidth / 2, leftRect.bottom - y * i, textPaint);
             //画横向表格线
-            if (i>0&&isShowGrid){
-                canvas.drawLine(leftRect.right,leftRect.bottom - y * i-textHeight/2,mainRect.right-leftPadding,leftRect.bottom - y * i,gridPaint);
+            if (i > 0 && isShowGrid) {
+                canvas.drawLine(leftRect.right, leftRect.bottom - y * i - textHeight / 2, mainRect.right - leftPadding, leftRect.bottom - y * i, gridPaint);
             }
         }
 
@@ -326,33 +326,38 @@ public class BaseMoreLineAndBarChart extends View {
      * @param canvas
      */
     private void drawLineChart(Canvas canvas) {
-        if (lineColors.length> 0 && lineColors.length != lineValues.size()) {
-            throw new RuntimeException("所设置的颜色值与设置的折线图条数不一致，请检查之后重试！");
+        if (lineColors.length > 0 && lineColors.length != lineValues.size()) {
+            throw new RuntimeException(tag_error + "所设置的颜色值与设置的折线图条数不一致，请检查之后重试！");
         }
 
         linePaint.setStrokeWidth(lineWidth);
         textPaint.setColor(indexTextColor);
         textPaint.setTextSize(indexTextSize);
         for (int i = 0; i < lineValues.size(); i++) {
-            linePaint.setColor(lineColors.length == 0 ? lineDefaultColor: lineColors[i]);
+            linePaint.setColor(lineColors.length == 0 ? lineDefaultColor : lineColors[i]);
             //画折线以及值
             for (int j = 0; j < lineValues.get(i).size(); j++) {
-                float lastX = j == 0 ? mainRect.left +singleValueX/2 : mainRect.left +singleValueX/2 + ((j - 1) * singleValueX);
-                float currentX = mainRect.left +singleValueX/2+ (j * singleValueX);
+                float lastX = j == 0 ? mainRect.left + singleValueX / 2 : mainRect.left + singleValueX / 2 + ((j - 1) * singleValueX);
+                float currentX = mainRect.left + singleValueX / 2 + (j * singleValueX);
                 float lastValue = j == 0 ? lineValues.get(i).get(0) : lineValues.get(i).get(j - 1);
                 float currentValue = lineValues.get(i).get(j);
                 canvas.drawLine(lastX, mainRect.height() - (singleValueY * lastValue), currentX, mainRect.height() - (singleValueY * currentValue), linePaint);
 
             }
+
+            float textWidth = textPaint.measureText(maxValue + "");
+            boolean isDrawLineValue = mainRect.width() / (lineValues.get(i).size() - 1) > textWidth;
+
+//            Log.e("222222", "drawLineChart: 字体宽度：" + textWidth + " 显示的宽度：" + mainRect.width() / (lineValues.get(i).size()));
             //画点和值
             for (int j = 0; j < lineValues.get(i).size(); j++) {
-                float currentX = mainRect.left +singleValueX/2+ (j * singleValueX);
+                float currentX = mainRect.left + singleValueX / 2 + (j * singleValueX);
                 float currentValue = lineValues.get(i).get(j);
 
-                float textWidth=textPaint.measureText(String.format("%2f",maxValue));
-                if (isShowLineValue&&mainRect.width()/lineValues.get(i).size()>textWidth){
-                    textWidth=textPaint.measureText(String.format("%.2f",lineValues.get(i).get(j)));
-                    canvas.drawText(String.format("%.2f",lineValues.get(i).get(j)),currentX-textWidth/2, mainRect.height() - (singleValueY * currentValue)-lineWidth*4, textPaint);
+
+                if (isShowLineValue && isDrawLineValue) {
+                    textWidth = textPaint.measureText(String.format("%.1f", lineValues.get(i).get(j)));
+                    canvas.drawText(String.format("%.2f", lineValues.get(i).get(j)), currentX - textWidth / 2, mainRect.height() - (singleValueY * currentValue) - lineWidth * 4, textPaint);
                 }
                 if (isDrawPoint) {
                     dotPaint.setColor(lineColors.length == 0 ? lineDefaultColor : lineColors[i]);
@@ -376,22 +381,19 @@ public class BaseMoreLineAndBarChart extends View {
      * @param canvas
      */
     private void drawBarChart(Canvas canvas) {
-        if (!isDrawBar){
-            return;
-        }
         if (barValues.size() == 0) {
-            Toast.makeText(getContext(),"您并没有添加柱状图数据",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "您并没有添加柱状图数据", Toast.LENGTH_SHORT).show();
             return;
         }
 
         barPaint.setColor(barColor);
         //计算柱状图的宽度
-        float barWidth = (mainRect.width())/ barValues.size();
-        float emptyWidth=barWidth/4;
+        float barWidth = (mainRect.width()) / barValues.size();
+        float emptyWidth = barWidth / 4;
         barPaint.setColor(barColor);
         for (int i = 0; i < barValues.size(); i++) {
             float x = mainRect.left + barWidth * i;
-            canvas.drawRect(x+emptyWidth , mainRect.height() - (singleValueY * barValues.get(i)), x+barWidth-emptyWidth, bottomRect.top, barPaint);
+            canvas.drawRect(x + emptyWidth, mainRect.height() - (singleValueY * barValues.get(i)), x + barWidth - emptyWidth, bottomRect.top, barPaint);
         }
 
     }
@@ -415,28 +417,53 @@ public class BaseMoreLineAndBarChart extends View {
         textPaint.setTextSize(bottomTextSize);
         String judgeText = bottomTextValues.get(0);
         float textWith = textPaint.measureText(judgeText);
+        //绘制底部线
         canvas.drawLine(leftRect.right, mainRect.bottom, mainRect.right, mainRect.bottom, bottomLinePaint);
         if (mainRect.width() / bottomTextValues.size() > textWith) {
             float x = mainRect.width() / bottomTextValues.size();
             for (int i = 0; i < bottomTextValues.size(); i++) {
-                canvas.drawText(bottomTextValues.get(i), bottomRect.left +x/2+(x * i - textWith / 2), bottomRect.top + bottomRect.height() / 2, textPaint);
+                canvas.drawText(bottomTextValues.get(i), bottomRect.left + x / 2 + (x * i - textWith / 2), bottomRect.top + bottomRect.height() / 2, textPaint);
             }
             return;
         }
 
-        int index = (int) bottomTextValues.size() /5;
-        float x = mainRect.width() /4;
-
-        for (int i = 1; i <=3; i++) {
-
-            textWith=textPaint.measureText(bottomTextValues.get(i));
-            canvas.drawText(bottomTextValues.get((int) index * i), bottomRect.left+ (x * i - textWith / 2), bottomRect.top + bottomRect.height() / 2, textPaint);
+        int showSum = getBottomShowSum(bottomRect.width() - textWith / 2, textWith, bottomTextValues.size());
+        int index =bottomTextValues.size() / showSum + 1;
+        float x = (bottomRect.width() - textWith / 2) / showSum+1;
+        for (int i = 1; i < showSum; i++) {
+            textWith = textPaint.measureText(bottomTextValues.get(i));
+            canvas.drawText(bottomTextValues.get(index * i), bottomRect.left + (x * i - (textWith / 2) + (singleValueX / 2)), bottomRect.top + bottomRect.height() / 2, textPaint);
         }
 
-        textWith=textPaint.measureText(bottomTextValues.get(bottomTextValues.size()-1));
-        canvas.drawText(bottomTextValues.get(0), mainRect.left, bottomRect.top + bottomRect.height() / 2, textPaint);
-        canvas.drawText(bottomTextValues.get(bottomTextValues.size() - 1), mainRect.right-textWith, bottomRect.top + bottomRect.height() / 2, textPaint);
+        textWith = textPaint.measureText(bottomTextValues.get(0));
+        canvas.drawText(bottomTextValues.get(0), bottomRect.left - (textWith / 2) + (singleValueX / 2), bottomRect.top + bottomRect.height() / 2, textPaint);
+        textWith = textPaint.measureText(bottomTextValues.get(bottomTextValues.size() - 1));
+        canvas.drawText(bottomTextValues.get(bottomTextValues.size() - 1), bottomRect.right - textWith, bottomRect.top + bottomRect.height() / 2, textPaint);
 
+
+    }
+
+
+    /**
+     * 获取底部显示多少个值
+     *
+     * @param width     显示的总长度
+     * @param textWith  文字的宽度
+     * @param valueSize 数据的总数
+     * @return 返回 显示的个数
+     */
+    private int getBottomShowSum(float width, float textWith, int valueSize) {
+        //当可以被5除尽
+        if (valueSize % 5 == 0 && textWith * 5 < width - textWith) {
+            return 4;
+        }
+        if (valueSize % 4 == 0 && textWith * 4 < width - textWith) {
+            return 3;
+        }
+        if (valueSize % 3 == 0 && textWith * 3 < width - textWith) {
+            return 2;
+        }
+        return 1;
 
     }
 
@@ -562,7 +589,7 @@ public class BaseMoreLineAndBarChart extends View {
     /**
      * 刷新，设置数据之后必须调用刷新，否则不生效
      */
-    protected void invalidateMoreLineAndBarChart(){
+    protected void invalidateMoreLineAndBarChart() {
         invalidate();
     }
 

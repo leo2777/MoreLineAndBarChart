@@ -89,9 +89,10 @@ public class MoreLineAndBarChart extends BaseMoreLineAndBarChart {
 
     /**
      * 设置折线图的数据，可多条，
-     * @param linesData
+     * @param linesData float 集合
      */
-    public void setLinesData(List<Float>... linesData){
+    @SafeVarargs
+    public final void setLinesData(List<Float>... linesData){
         setLineValues(Arrays.asList(linesData));
     }
 

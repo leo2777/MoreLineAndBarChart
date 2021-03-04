@@ -32,19 +32,20 @@ public class MainActivity extends AppCompatActivity {
         List<Float> value3=new ArrayList<>();
         List<Float> barValue=new ArrayList<>();
         List<String > bottomValue=new ArrayList<>();
-        for (int i=0;i<50;i++){
-            value1.add((float) random.nextInt(60));
-            value2.add((float) random.nextInt(40));
+        for (int i=0;i<20;i++){
+            value1.add((float) random.nextInt(10));
+            value2.add((float) random.nextInt(4));
             value3.add((float) random.nextInt(5));
             barValue.add((float) random.nextInt(50));
-            bottomValue.add("指标"+(i+1));
+            bottomValue.add("2023");
         }
 
 
         moreLineAndBarChart.setBottomValues(bottomValue);
-        moreLineAndBarChart.setLinesData(value1,value2,value3);
+        moreLineAndBarChart.setLinesData(value1);
         moreLineAndBarChart.setBarChartValues(barValue);
-        moreLineAndBarChart.setLinesColors(Color.BLUE,Color.YELLOW,Color.RED);
+        moreLineAndBarChart.setLinesColors(Color.BLUE);
+        moreLineAndBarChart.setIndexTextColor(Color.BLUE);
         moreLineAndBarChart.setLineWidth(DisplayUtils.dp2px(this,1));
 
         moreLineAndBarChart.setSolid(true);
