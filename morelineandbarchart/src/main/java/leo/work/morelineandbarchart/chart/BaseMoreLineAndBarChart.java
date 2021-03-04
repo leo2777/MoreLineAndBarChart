@@ -382,7 +382,6 @@ public class BaseMoreLineAndBarChart extends View {
      */
     private void drawBarChart(Canvas canvas) {
         if (barValues.size() == 0) {
-            Toast.makeText(getContext(), "您并没有添加柱状图数据", Toast.LENGTH_SHORT).show();
             return;
         }
 
