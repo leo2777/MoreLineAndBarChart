@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
         List<Float> value2=new ArrayList<>();
         List<Float> value3=new ArrayList<>();
         List<Float> barValue=new ArrayList<>();
-        List<String > bottomValue=new ArrayList<>();
-        for (int i=0;i<20;i++){
+        List<String> bottomValue=new ArrayList<>();
+        for (int i=0;i<11;i++){
             value1.add((float) random.nextInt(10));
             value2.add((float) random.nextInt(4));
             value3.add((float) random.nextInt(5));
