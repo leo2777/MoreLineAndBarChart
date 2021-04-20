@@ -346,7 +346,7 @@ public class BaseMoreLineAndBarChart extends View {
             }
 
             float textWidth = textPaint.measureText(maxValue + "");
-            boolean isDrawLineValue = mainRect.width() / (lineValues.get(i).size()) > textWidth;
+            boolean isDrawLineValue = mainRect.width() / (lineValues.get(i).size()>1?lineValues.get(i).size()-1:lineValues.get(i).size()) > textWidth;
 
 //            Log.e("222222", "drawLineChart: 字体宽度：" + textWidth + " 显示的宽度：" + mainRect.width() / (lineValues.get(i).size()));
             //画点和值
