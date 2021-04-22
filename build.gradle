@@ -28,8 +28,8 @@ task clean(type: Delete) {
 ext{
     compileSdkVersion = 28
     minSdkVersion = 19
-    minLibSdkVersion = 15
+    minLibSdkVersion = 19
     targetSdkVersion = 28
-    versionCode = 4
-    versionName = "1.0.4"
+    versionCode = 9
+    versionName = "1.0.9"
 }
