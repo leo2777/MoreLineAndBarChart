@@ -307,7 +307,7 @@ public class BaseMoreLineAndBarChart extends View {
         float y = leftRect.height() / leftTargetNum;
         //画值
         for (int i = 0; i < leftTargetNum; i++) {
-            @SuppressLint("DefaultLocale") String value = String.format("%.1f", singleValue * i);
+            @SuppressLint("DefaultLocale") String value = String.format("%.1f", minValue+singleValue * i);
             float textWidth = textPaint.measureText(value);
             //画值
             canvas.drawText(value, leftRect.width() / 2 - textWidth / 2, leftRect.bottom - y * i, textPaint);
@@ -339,8 +339,8 @@ public class BaseMoreLineAndBarChart extends View {
             for (int j = 0; j < lineValues.get(i).size(); j++) {
                 float lastX = j == 0 ? mainRect.left + singleValueX / 2 : mainRect.left + singleValueX / 2 + ((j - 1) * singleValueX);
                 float currentX = mainRect.left + singleValueX / 2 + (j * singleValueX);
-                float lastValue = j == 0 ? lineValues.get(i).get(0) : lineValues.get(i).get(j - 1);
-                float currentValue = lineValues.get(i).get(j);
+                float lastValue = j == 0 ? lineValues.get(i).get(0)-minValue : lineValues.get(i).get(j - 1)-minValue;
+                float currentValue = lineValues.get(i).get(j)-minValue;
                 canvas.drawLine(lastX, mainRect.height() - (singleValueY * lastValue), currentX, mainRect.height() - (singleValueY * currentValue), linePaint);
 
             }
@@ -352,7 +352,7 @@ public class BaseMoreLineAndBarChart extends View {
             //画点和值
             for (int j = 0; j < lineValues.get(i).size(); j++) {
                 float currentX = mainRect.left + singleValueX / 2 + (j * singleValueX);
-                float currentValue = lineValues.get(i).get(j);
+                float currentValue = lineValues.get(i).get(j)-minValue;
 
 
                 if (isShowLineValue && isDrawLineValue) {
@@ -369,8 +369,6 @@ public class BaseMoreLineAndBarChart extends View {
                     dotPaint.setStyle(Paint.Style.FILL);
                     canvas.drawCircle(currentX, mainRect.height() - (singleValueY * currentValue), lineWidth * 2, dotPaint);
                 }
-
-
             }
         }
     }
