@@ -8,13 +8,11 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 import static android.graphics.Paint.ANTI_ALIAS_FLAG;
 
@@ -27,8 +25,8 @@ import static android.graphics.Paint.ANTI_ALIAS_FLAG;
  **/
 public class BaseMoreLineAndBarChart extends View {
 
-    private final static String tag_error = "MoreLineAndBarChart--error";
-    private final static String tag_warn = "MoreLineAndBarChart--warn";
+    private final static String TAG_ERROR = "MoreLineAndBarChart--error";
+    private final static String TAG_WARN = "MoreLineAndBarChart--warn";
 
     //主页面框
     private Rect mainRect;
@@ -294,7 +292,7 @@ public class BaseMoreLineAndBarChart extends View {
 
         //设置错误的错误值
         if (textHeight * leftTargetNum > leftRect.height()) {
-            Log.e(tag_warn, "drawLeft: init-warn :    设置的左边指标值过多，为了显示效果，已经重置为五个，请重新检查！");
+            Log.e(TAG_WARN, "drawLeft: init-warn :    设置的左边指标值过多，为了显示效果，已经重置为五个，请重新检查！");
             leftTargetNum = 5;
         }
 
@@ -327,7 +325,7 @@ public class BaseMoreLineAndBarChart extends View {
      */
     private void drawLineChart(Canvas canvas) {
         if (lineColors.length > 0 && lineColors.length != lineValues.size()) {
-            throw new RuntimeException(tag_error + "所设置的颜色值与设置的折线图条数不一致，请检查之后重试！");
+            throw new RuntimeException(TAG_ERROR + "所设置的颜色值与设置的折线图条数不一致，请检查之后重试！");
         }
 
         linePaint.setStrokeWidth(lineWidth);
@@ -406,7 +404,7 @@ public class BaseMoreLineAndBarChart extends View {
         bottomLinePaint.setColor(bottomLineColor);
 
         if (bottomTextValues.size() == 0) {
-            Toast.makeText(getContext(), "您并没有添加底部指标数据！", Toast.LENGTH_SHORT).show();
+            Log.e(TAG_WARN, "drawBottom: 您并没有添加底部指标数据！");
             return;
         }
 
