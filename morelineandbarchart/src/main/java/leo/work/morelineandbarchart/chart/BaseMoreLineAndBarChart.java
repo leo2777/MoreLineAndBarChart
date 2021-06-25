@@ -183,7 +183,6 @@ public class BaseMoreLineAndBarChart extends View {
         gridPaint = new Paint(ANTI_ALIAS_FLAG);
         backgroundPaint = new Paint(ANTI_ALIAS_FLAG);
 
-
         maxValue = Float.MIN_VALUE;
         minValue = Float.MAX_VALUE;
         singleValueY = 0;
@@ -232,6 +231,8 @@ public class BaseMoreLineAndBarChart extends View {
         }
         //计算位置
         calculateValue();
+        if (maxValue == Float.MIN_VALUE)return;
+        if (minValue ==Float.MAX_VALUE)return;
         //绘制左边指标以及分割线
         drawLeftAndGrid(canvas);
         //绘制柱状图

@@ -2,6 +2,7 @@ package leo.work.library;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
 
     private MoreLineAndBarChart moreLineAndBarChart;
 
+    List<Float> value1=new ArrayList<>();
+    List<String> bottomValue=new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,11 +31,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData() {
         Random random=new Random();
-        List<Float> value1=new ArrayList<>();
         List<Float> value2=new ArrayList<>();
         List<Float> value3=new ArrayList<>();
         List<Float> barValue=new ArrayList<>();
-        List<String> bottomValue=new ArrayList<>();
         for (int i=0;i<11;i++){
 //            value1.add((float) random.nextInt(10));
 //            value2.add((float) random.nextInt(4));
@@ -53,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
         value1.add(3.2f);
 
 
-        moreLineAndBarChart.setBottomValues(bottomValue);
-        moreLineAndBarChart.setLinesData(value1);
+
 //        moreLineAndBarChart.setBarChartValues(barValue);
         moreLineAndBarChart.setLinesColors(Color.BLUE);
         moreLineAndBarChart.setIndexTextColor(Color.BLUE);
@@ -67,8 +68,14 @@ public class MainActivity extends AppCompatActivity {
         moreLineAndBarChart.setShowLineValue(true);
 
         //.......
-
-        moreLineAndBarChart.invalidateChart();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                moreLineAndBarChart.setBottomValues(bottomValue);
+                moreLineAndBarChart.setLinesData(value1);
+                moreLineAndBarChart.invalidateChart();
+            }
+        },2000);
 
 
     }
