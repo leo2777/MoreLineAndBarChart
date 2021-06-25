@@ -184,8 +184,8 @@ public class BaseMoreLineAndBarChart extends View {
         backgroundPaint = new Paint(ANTI_ALIAS_FLAG);
 
 
-        maxValue = 0;
-        minValue = 0;
+        maxValue = Float.MIN_VALUE;
+        minValue = Float.MAX_VALUE;
         singleValueY = 0;
         singleValueX = 0;
 
@@ -281,7 +281,16 @@ public class BaseMoreLineAndBarChart extends View {
      */
     @SuppressLint("LongLogTag")
     private void drawLeftAndGrid(Canvas canvas) {
-        //测量高度
+        textPaint.setColor(leftTextColor);
+        textPaint.setTextSize(leftIndexTextSize);
+        gridPaint.setColor(gridColor);
+        gridPaint.setStrokeWidth(gridLineWidth);
+        //某一个值的数值
+        float singleValue = (maxValue - minValue) / leftTargetNum;
+        float singleY = singleValueY*singleValue;
+
+
+        textPaint.measureText(String.format("%.2f", minValue));
         Paint.FontMetrics fm = textPaint.getFontMetrics();
         float textHeight = fm.descent - fm.ascent;
 
@@ -296,22 +305,20 @@ public class BaseMoreLineAndBarChart extends View {
             leftTargetNum = 5;
         }
 
-        textPaint.setColor(leftTextColor);
-        textPaint.setTextSize(leftIndexTextSize);
-        gridPaint.setColor(gridColor);
-        gridPaint.setStrokeWidth(gridLineWidth);
-        //某一个值的数值
-        float singleValue = (maxValue - minValue) / leftTargetNum;
-        float y = leftRect.height() / leftTargetNum;
         //画值
-        for (int i = 0; i < leftTargetNum; i++) {
-            @SuppressLint("DefaultLocale") String value = String.format("%.1f", minValue+singleValue * i);
+        for (int i = 0; i <= leftTargetNum; i++) {
+            String value = String.format("%.2f", minValue+singleValue * i);
             float textWidth = textPaint.measureText(value);
+            float y = leftRect.bottom-bottomPadding-singleY*i;
+            //测量高度
+            fm = textPaint.getFontMetrics();
+            textHeight = fm.descent - fm.ascent;
             //画值
-            canvas.drawText(value, leftRect.width() / 2 - textWidth / 2, leftRect.bottom - y * i, textPaint);
+            canvas.drawText(value, leftRect.width() / 2 - textWidth / 2, y+textHeight/2, textPaint);
             //画横向表格线
-            if (i > 0 && isShowGrid) {
-                canvas.drawLine(leftRect.right, leftRect.bottom - y * i - textHeight / 2, mainRect.right - leftPadding, leftRect.bottom - y * i, gridPaint);
+            if (isShowGrid) {
+                canvas.drawLine(leftRect.right, y,
+                        mainRect.right - leftPadding, y, gridPaint);
             }
         }
 
@@ -398,6 +405,7 @@ public class BaseMoreLineAndBarChart extends View {
      *
      * @param canvas
      */
+    @SuppressLint("LongLogTag")
     private void drawBottom(Canvas canvas) {
 
         bottomLinePaint.setStrokeWidth(bottomLineWidth);

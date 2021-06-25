@@ -40,17 +40,17 @@ public class MainActivity extends AppCompatActivity {
             bottomValue.add("2023");
         }
 
-        value1.add(-3f);
-        value1.add(-8f);
-        value1.add(-12f);
-        value1.add(13f);
+        value1.add(3.3f);
+        value1.add(3.6f);
+        value1.add(3.3f);
+        value1.add(3.1f);
         value1.add(3f);
-        value1.add(21f);
-        value1.add(32f);
-        value1.add(-33f);
-        value1.add(-13f);
-        value1.add(32f);
-        value1.add(33f);
+        value1.add(3.9f);
+        value1.add(3.5f);
+        value1.add(3.7f);
+        value1.add(3.8f);
+        value1.add(3.4f);
+        value1.add(3.2f);
 
 
         moreLineAndBarChart.setBottomValues(bottomValue);
