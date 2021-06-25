@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+import leo.work.morelineandbarchart.tools.FormatBIgValueUtil;
+
 import static android.graphics.Paint.ANTI_ALIAS_FLAG;
 
 /**
@@ -308,7 +310,7 @@ public class BaseMoreLineAndBarChart extends View {
 
         //画值
         for (int i = 0; i <= leftTargetNum; i++) {
-            String value = String.format("%.2f", minValue+singleValue * i);
+            String value = new FormatBIgValueUtil().format(minValue+singleValue * i);
             float textWidth = textPaint.measureText(value);
             float y = leftRect.bottom-bottomPadding-singleY*i;
             //测量高度

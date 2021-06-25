@@ -49,10 +49,10 @@ public class MainActivity extends AppCompatActivity {
         value1.add(3f);
         value1.add(3.9f);
         value1.add(3.5f);
-        value1.add(3.7f);
+        value1.add(-556.454f);
         value1.add(3.8f);
         value1.add(3.4f);
-        value1.add(3.2f);
+        value1.add(-1003.4545f);
 
 
 
