@@ -12,6 +12,8 @@
         <attr name="chart_bottom_text_size" format="dimension"/>
         //中间某一点的值具体大小
         <attr name="chart_center_text_size" format="dimension"/>
+<!--        柱状图数值显示字体大小-->
+        <attr name="chart_bar_index_text_size" format="dimension"/>
         //折线图线的大小
         <attr name="chart_line_size" format="dimension"/>
         //表格分割线具体大小
@@ -32,6 +34,8 @@
         <attr name="chart_left_index_text_color" format="color"/>
         //中间值的颜色
         <attr name="chart_center_index_text_color" format="color"/>
+<!--        柱状图显示数值颜色-->
+        <attr name="chart_bar_index_text_color" format="color"/>
         //下方指标的颜色
         <attr name="chart_bottom_text_color" format="color"/>
         //柱状图的颜色

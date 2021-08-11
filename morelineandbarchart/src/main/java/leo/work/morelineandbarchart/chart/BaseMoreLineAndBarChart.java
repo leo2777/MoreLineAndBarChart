@@ -126,6 +126,9 @@ public class BaseMoreLineAndBarChart extends View {
     //折线某点的值字体大小
     private float indexTextSize;
 
+    //柱状图数值字体大小
+    private float barIndexTextSize;
+
     //默认折线的颜色
     private int lineDefaultColor;
 
@@ -134,6 +137,9 @@ public class BaseMoreLineAndBarChart extends View {
 
     //折线某点的颜色
     private int indexTextColor;
+
+    //柱状图数值颜色，
+    private int barIndexTextColor;
 
     //底部文字颜色
     private int bottomTextColor;
@@ -396,8 +402,15 @@ public class BaseMoreLineAndBarChart extends View {
         float barWidth = (mainRect.width()) / barValues.size();
         float emptyWidth = barWidth / 4;
         barPaint.setColor(barColor);
+        textPaint.setColor(barIndexTextColor);
+        textPaint.setTextSize(barIndexTextSize);
         for (int i = 0; i < barValues.size(); i++) {
+            String value = String.format("%.2f", barValues.get(i));
+            float textWidth = textPaint.measureText(value);
+            Paint.FontMetrics fm = textPaint.getFontMetrics();
+            float textHeight = fm.descent - fm.ascent;
             float x = mainRect.left + barWidth * i;
+            canvas.drawText(value,x+emptyWidth*2-textWidth/2,mainRect.height() - (singleValueY * barValues.get(i))-textHeight,textPaint);
             canvas.drawRect(x + emptyWidth, mainRect.height() - (singleValueY * barValues.get(i)), x + barWidth - emptyWidth, bottomRect.top, barPaint);
         }
 
@@ -550,6 +563,10 @@ public class BaseMoreLineAndBarChart extends View {
         this.indexTextSize = indexTextSize;
     }
 
+    public void setBarIndexTextSize(float textSize){
+        this.barIndexTextSize = textSize;
+    }
+
     public void setLineDefaultColor(int lineDefaultColor) {
         this.lineDefaultColor = lineDefaultColor;
     }
@@ -560,6 +577,10 @@ public class BaseMoreLineAndBarChart extends View {
 
     public void setIndexTextColor(int indexTextColor) {
         this.indexTextColor = indexTextColor;
+    }
+
+    public void setBarIndexTextColor(int barIndexColor){
+        this.barIndexTextColor = barIndexColor;
     }
 
     public void setBottomTextColor(int bottomTextColor) {

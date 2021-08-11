@@ -48,11 +48,13 @@ public class MoreLineAndBarChart extends BaseMoreLineAndBarChart {
             setLeftIndexTextSize(array.getDimension(R.styleable.MoreLineAndBarChart_chart_left_index_text_size,getDimension(R.dimen.chart_left_text_size)));
             setBottomTextSize(array.getDimension(R.styleable.MoreLineAndBarChart_chart_bottom_text_size,getDimension(R.dimen.chart_bottom_text_size)));
             setIndexTextSize(array.getDimension(R.styleable.MoreLineAndBarChart_chart_center_text_size,getDimension(R.dimen.chart_center_text_size)));
+            setBarIndexTextSize(array.getDimension(R.styleable.MoreLineAndBarChart_chart_bar_index_text_size,getDimension(R.dimen.chart_bar_index_text_size)));
             setLineWidth(array.getDimension(R.styleable.MoreLineAndBarChart_chart_line_size,getDimension(R.dimen.chart_line_size)));
             setGridLineWidth(array.getDimension(R.styleable.MoreLineAndBarChart_chart_grid_size,getDimension(R.dimen.chart_grid_size)));
             setBottomLineWidth(array.getDimension(R.styleable.MoreLineAndBarChart_chart_bottom_line_size,getDimension(R.dimen.chart_bottom_line_size)));
             setLeftTextColor(array.getColor(R.styleable.MoreLineAndBarChart_chart_left_index_text_color,getColor(R.color.chart_left_index_text_color)));
             setIndexTextColor(array.getColor(R.styleable.MoreLineAndBarChart_chart_center_index_text_color,getColor(R.color.chart_center_index_color)));
+            setBarIndexTextColor(array.getColor(R.styleable.MoreLineAndBarChart_chart_bar_index_text_color,getColor(R.color.chart_bar_index_color)));
             setBottomTextColor(array.getColor(R.styleable.MoreLineAndBarChart_chart_bottom_text_color,getColor(R.color.chart_bottom_text_color)));
             setBarColor(array.getColor(R.styleable.MoreLineAndBarChart_chart_bar_color,getColor(R.color.chart_bar_color)));
             setGridColor(array.getColor(R.styleable.MoreLineAndBarChart_chart_grid_color,getColor(R.color.chart_grid_color)));

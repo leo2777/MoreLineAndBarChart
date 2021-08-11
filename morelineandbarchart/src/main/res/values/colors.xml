@@ -8,6 +8,7 @@
 
     <color name="chart_left_index_text_color">#777777</color>
     <color name="chart_center_index_color">#FC8952</color>
+    <color name="chart_bar_index_color">#4AA5C2</color>
     <color name="chart_bottom_text_color">#777777</color>
     <color name="chart_bar_color">#4AA5C2</color>
     <color name="chart_grid_color">#222733</color>

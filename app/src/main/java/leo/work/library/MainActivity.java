@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 //            value1.add((float) random.nextInt(10));
 //            value2.add((float) random.nextInt(4));
 //            value3.add((float) random.nextInt(5));
-//            barValue.add((float) random.nextInt(50));
+            barValue.add((float) random.nextInt(50));
             bottomValue.add("2023");
         }
 
@@ -56,9 +56,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        moreLineAndBarChart.setBarChartValues(barValue);
-        moreLineAndBarChart.setLinesColors(Color.BLUE);
+        moreLineAndBarChart.setBarChartValues(barValue);
+//        moreLineAndBarChart.setLinesColors(Color.BLUE);
         moreLineAndBarChart.setIndexTextColor(Color.BLUE);
+        moreLineAndBarChart.setBarIndexTextColor(Color.WHITE);
         moreLineAndBarChart.setLineWidth(DisplayUtils.dp2px(this,1));
 
         moreLineAndBarChart.setSolid(true);
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 moreLineAndBarChart.setBottomValues(bottomValue);
-                moreLineAndBarChart.setLinesData(value1);
+//                moreLineAndBarChart.setLinesData(value1);
                 moreLineAndBarChart.invalidateChart();
             }
         },2000);
